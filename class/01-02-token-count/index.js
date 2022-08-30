@@ -1,8 +1,6 @@
-// ??
-// 토큰의 한계
-// 토큰 항상 6자리 토큰밖에 못만드나? 실무에서 사용하기엔 재사용성이 너무 떨어진다.
+// 6자리 토큰의 한계점(6자리로 고정되어 있어 재사용이 어렵다.)
 
-// 1. 토큰 재사용성 높이기
+// 1. 재사용이 가능한 token 생성 함수(getToken함수)실습
 
 function getToken(count) {
   const result = String(Math.floor(Math.random() * 10 ** count)).padStart(
@@ -17,13 +15,12 @@ getToken(4);
 getToken(5);
 getToken(6);
 
+// getToken 함수 실행 시 몇 자리의 토큰이 필요한지 알려주기 위해 Param 가 필요함.(count)
 // 10*10*10*10*10*10 = 10의 6승, 10의 6제곱
-// 제곱을 나타내려면?
-// 10 **
-// 10** 2 =  10의 2승/ 10** 3 = 10의 3승
+// 제곱 해주는 연산자 **
+// 10** 2 =  10의 2제곱/ 10** 3 = 10의 3제곱
 
-// ??
-// 인자가 없거나 음수이거나 숫자가 큰경우 제지를 해줘야함. 해볼까?
+// 1. getToken 함수의 안정성 높이기(if문을 사용해 예외처리 해주기)
 
 function getToken(count) {
   if (count !== undefined) {
@@ -52,12 +49,9 @@ getToken(4);
 
 // 너무 보기 여렵다. !! 안좋은 예제
 
-// 어떻게 효율적으로 성능좋게 할수 있는가?
-
+// 2. getToken 함수의 안정성 높이기(리팩토링 패턴)
 // early exit : 빠르게 종료한다. 아닌것 부터 처리한다.
 // 코드 가독성이 좋아야 유지보수가 좋아짐.
-
-// 리팩토링 패턴
 
 function getToken(count) {
   // 1. 에러먼저 나열
@@ -69,7 +63,7 @@ function getToken(count) {
     console.log("에러발생!! 갯수가 너무 작습니다!");
     return;
   }
-  if (count < 10) {
+  if (count > 10) {
     console.log("에러발생!! 갯수가 너무 많습니다!");
     return;
   }
