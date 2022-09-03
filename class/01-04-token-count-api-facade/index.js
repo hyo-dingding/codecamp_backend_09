@@ -1,9 +1,4 @@
-// 퍼사드패턴 코드리팩토링을 위한 퍼사드패턴
-// Facade 코드 만들어놓고 성벽을 쌓는다
-// 성벽안에있는건 굳이궁금해하지 말자
-
-// 3의 함수를만든다.
-// 각각하나의 펑셩으로 빼고 이해하기 쉬운 이름으로 바꾼다.
+// 코드 라팩토링을 위한 퍼사트 패턴
 
 function CheckPhone(myPhone) {
   if (myPhone.length !== 10 && myPhone.length !== 11) {
@@ -40,7 +35,11 @@ function sendTokenToSMS(myPhone, result) {
   console.log(myPhone + "번호로 인증번호" + result + "를 전송합니다!");
 }
 
+// ------------------------------------------------------------------
+// Facade 코드 만들어놓고 성벽을 쌓는다
+// 성벽안에있는건 굳이궁금해하지 말자
 // 이것만 보면됨.퍼사드 패턴임. 복잡했던 API가 3단계로 끝나버림.
+
 function createTokenOfPhone(myPhone) {
   // 1. 핸드폰번호 자릿수 맞는지 확인하기.
   const isValid = CheckPhone(myPhone);
@@ -49,7 +48,7 @@ function createTokenOfPhone(myPhone) {
   //  연결시켜주기! myPhone 을 인자로 넣어서 매개변수로 받아야함
   // isValid 유효하니?  false(함수종료됨) or true 가 들어오게됨.
 
-  // 2. 핸드폰 토큰 6자리 만들기.(getToken)
+  // 2. 토큰 6자리 발급
   const myToken = getToken();
 
   // 3. 핸드폰번호에 토큰 전송하기.

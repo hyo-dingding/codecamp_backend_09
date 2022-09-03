@@ -2,7 +2,9 @@ import express from "express";
 import { getToken, CheckPhone, sendTokenToSMS } from "./phone.js";
 // rest_api 연습
 const app = express();
-app.use(express.json()); // 다 객체로 바꿔줘  1. 설정기능 (읽을수 있게 허락해줘) 2.
+// front 에서 준 데이터는 Body 에 담겨서 오는데 객체로 예쁘게 포장해서 넘겨줌 -> 그런데 그것은 JSON형태텍스트이고 실제로 우리가 활용할때 객체로 사용해야한다.
+// 데이터 받아올때 자동변환 되지 않기 때문에 객체로 변환 해줘야함.
+app.use(express.json()); // 다 객체로 바꿔줘  1. 설정기능 (JSON 데이터 읽을수 있게 허락해줘) 2. use 가지고 API만들수 있음.
 app.get("/boards", function (req, res) {
   // 1. 데이터 조회하는 로직 = DB접속해서 데이터 꺼내오기
   // 그리고 꺼내온 결과를 변수에 담음 배열안에 객체형태로 저장되있음[{ 데이터가 }]
@@ -15,8 +17,10 @@ app.get("/boards", function (req, res) {
   res.send(result);
 });
 
+// post 사용시
+// post -> body -> raw -> JSON(application/json)
 app.post("/boards", function (req, res) {
-  // 프론트에서 입력 -> 등록하기클릭 -> 우리한테 요청이 날라옴 -> 프론트에서 받아온 데이터 꺼내기 -> DB에 보내기
+  // 프론트에서 입력 -> 등록하기클릭 -> 우리한테 요청이 날라옴 -> 프론트에서 받아온 데이터 꺼내기 -> DB에 보내기-> 프론트에 DB에 잘넣은것 응답주기
   // 1. 브라우저에서 보내준 데이터 확인하기
 
   console.log(req.body);
@@ -40,7 +44,7 @@ app.post("/tokens/phone", (req, res) => {
 
   res.send("인증완료!!");
 
-  // phone.js 만들어서 분리하가
+  // phone.js 만들어서 분리하기
   // 포스트맨에서 마이폰받아서 사용하기.
 });
 
@@ -48,7 +52,8 @@ app.listen(3000, () => {
   console.log("서버 프로그램을 켜는데 성공했어요");
 });
 
-// restful하다 기억났당 boards s붙은이유?
+// restful하다 기억났당
+// boards s붙은이유?
 // get
 // boards 목록조회
 // boards/:id 상세조회

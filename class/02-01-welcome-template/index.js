@@ -24,11 +24,12 @@ console.log(`철수는 사과를 ${apple}개, 바나나를 ${banana}개 가지�
 
 //   console.log(myTemplate);
 // }
+
 // getWelcomeTemplate("영희", 12, "토끼초등학교", "2022-08-30"); ==> 결과값이 정적인것을 동적으로 변경필요.
 
 // 문제점!
-// 4개중 실행시 마지막에 값을 안넣으면 어떻게 되냐? 언디파인드가 나옴.
-// 문제는 가운데 school을 실수로 빠트렸을때 문제가 됨.
+// 인자 값 4개중 myCreatedAt 값을 안넣으면 어떻게 될까? 매개변수의 createdAt undefined 가 나옴.
+// 만약 인자값 myAge을 실수로 빠뜨리면? mySchool -> 매개변수 age 값에 들어가게됨. (엄청난 버그임.)
 
 // function getWelcomeTemplate(name, age, school, createdAt) {
 //   const myTemplate = `
@@ -47,14 +48,17 @@ console.log(`철수는 사과를 ${apple}개, 바나나를 ${banana}개 가지�
 //   console.log(myTemplate);
 // }
 
-// const myname = "훈이";
-// const myage = 10;
-// const myschool = "공룡초등학교";
-// const mycreatedAt = "2022-08-30";
+// const myName = "훈이";
+// const myAge = 10;
+// const mySchool = "공룡초등학교";
+// const myCreatedAt = "2022-08-30";
 
-// getWelcomeTemplate(myname, myage, myschool, mycreatedAt);
+// getWelcomeTemplate(myName, myAge, mySchool, myCreatedAt);
 
-function getWelcomeTemplate({ name, age, school, createdAt }) {
+// 실무에서 쓰는 방식(안전한 코드)
+//  아래처럼 매개변수와 인자가 이름이 같게 해주고 중괄호로 감싸주면 이름에 따라 매칭이 된다.
+
+function getWelcomeTemplate(name, age, school, createdAt) {
   const myTemplate = `
       
         <html>  
@@ -76,7 +80,7 @@ const age = 10;
 const school = "공룡초등학교";
 const createdAt = "2022-08-30";
 
-getWelcomeTemplate({ name, age, school, createdAt });
+getWelcomeTemplate(name, age, school, createdAt);
 
 // 똑같은 이름에 값이 들어가게됨. my뺐음.
 // 인자와 매개변수가 같음. ->  더안전한 코드로 바뀜

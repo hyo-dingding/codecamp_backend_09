@@ -1,0 +1,38 @@
+<!-- req 보내기 -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>회원가입 연습하기</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      function check() {
+        //1. 입력한 휴대폰 번호 가져오기
+        const myPhone = document.getElementById("phoneNum").value;
+        console.log("나의 핸드폰 번호:", myPhone);
+        // 2. 해당 휴대폰번호로 인증번호 API 요청하기
+        // fetch()
+        // axios.get() 사용시 다운로드 필요 src="http:// 그파일에 있는 자바스크립트를 다운받아오는것임."
+        // XMLHttpRequest()
+
+        axios
+          .post("http://localhost:3000/tokens/phone", {
+            myPhone: myPhone, // req 들어감 폰번호 꺼낼수 있음. 응답한 인증완료가
+          })
+          .then((res) => {
+            // res 안에 들어옴.
+            console.log(res);
+            document.getElementById("aaa").innerText = res.data;
+          });
+      }
+    </script>
+  </head>
+  <body>
+    휴대폰번호: <input type="text" id="phoneNum" />
+    <button onClick="check()">인증하기</button><br />
+    <div id="aaa">인증상태</div>
+    <button>회원가입하기</button>
+  </body>
+</html>
+
+<!-- 인증클릭 하면 핸드폰 번호 먼저 가져옴. -->
+<!-- 엑시오스 설치하면 윈도우에 설치되는것임 다운로드 해야 액시오스가 존재한다 -->

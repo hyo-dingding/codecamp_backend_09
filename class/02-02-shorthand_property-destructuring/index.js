@@ -63,10 +63,15 @@ qqq({ name, age, school }); // 둘다 결과는 동일
 // function www(aaa){
 
 //  console.log(aaa);
-//   // { apple: 3, banana: 10 } ===> const aaa = basket 과 같은 얘기
-//   // const aaa = { apple: 3, banana: 10 } 이것과 동일한 얘기
-//   // const { apple, banana } = { apple: 3, banana: 10 } 이런방식으로 구조분해 할당 가능.
-// }
+
+// { apple: 3, banana: 10 } ===> const aaa = basket 과 같은 얘기
+//  const { apple, banana } = { apple: 3, banana: 10 } 이런방식으로 구조분해 할당 가능.
+
+// const basket = {
+//   apple: 3,
+//   banana: 10,
+// };
+// www(basket);
 
 // [구조분해할당해서 받자 ]
 function www({ apple, banana }) {

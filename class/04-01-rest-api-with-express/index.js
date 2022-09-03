@@ -1,3 +1,4 @@
+// rest-API 만들기
 // const express = require("express");  옛날방식
 import express from "express"; // 최신방식
 const app = express();

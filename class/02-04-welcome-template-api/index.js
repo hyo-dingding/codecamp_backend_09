@@ -21,7 +21,7 @@ function getWelcomeTemplate() {
   return myTemplate;
 }
 
-function sendTokenToSMS(myemail, result) {
+function sendTokenToEmail(myemail, result) {
   console.log(myemail + "이메일로 가입환영 템플릿" + result + "를 전송합니다!");
 }
 
@@ -35,7 +35,7 @@ function createUser({ name, age, school, email }) {
   const myTemplate = getWelcomeTemplate({ name, age, school });
 
   // 3. 이메일에 가입환영 템플릿 전송하기
-  sendTokenToSMS(email, myTemplate);
+  sendTokenToEmail(email, myTemplate);
 }
 
 const name = "철수";

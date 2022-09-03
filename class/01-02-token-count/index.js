@@ -20,7 +20,7 @@ getToken(6);
 // 제곱 해주는 연산자 **
 // 10** 2 =  10의 2제곱/ 10** 3 = 10의 3제곱
 
-// 1. getToken 함수의 안정성 높이기(if문을 사용해 예외처리 해주기)
+// 2. getToken 함수의 안정성 높이기(if문을 사용해 예외처리 해주기)
 
 function getToken(count) {
   if (count !== undefined) {
@@ -49,8 +49,8 @@ getToken(4);
 
 // 너무 보기 여렵다. !! 안좋은 예제
 
-// 2. getToken 함수의 안정성 높이기(리팩토링 패턴)
-// early exit : 빠르게 종료한다. 아닌것 부터 처리한다.
+// 3. getToken 함수의 안정성 높이기(리팩토링 패턴 중 하나)
+// early exit : 빠르게 종료한다. 아닌것 부터 빨리 처리한다.
 // 코드 가독성이 좋아야 유지보수가 좋아짐.
 
 function getToken(count) {
@@ -79,14 +79,12 @@ getToken(-2);
 getToken(15);
 getToken(4);
 
-//api를 어떻게 만들까? 흉내내보기
-
 // 실무용으로 변경하기 위해 알아야할 함수의 필수 개념들이 있음.(매개변수, 인자, 스코프, 리턴)
 // 함수 선언하기
 function add() {
   const a = 1;
   const b = 1;
-  const result1 = a + b;
+  const result1 = a + b; // 더하기 기능
   console.log(result1);
 }
 
@@ -94,7 +92,7 @@ function add() {
 add();
 
 // --------------------------------------------------
-
+// 더할 값  전달하여 재사용성 높이기
 // 함수 선언하기
 function add(a, b) {
   //  매개변수(Parameter, Param)
@@ -105,11 +103,28 @@ function add(a, b) {
 // 함수 실행하기
 add(1, 2); // 인자(Argument, Arg)
 
-// a와 b에 사용핳 공간은 중괄호 안임 {안에 만 a,b가 존재함, 범위를 스코프라고함 }
+//------------------------------------------------------
 // 스코프 ?
+// a와 b에 사용핳 공간은 중괄호 안임 중괄호안에 만 a,b가 존재함. { 범위를 스코프라고함 }
 
-// 매우중요 한것 중괄호 안에서 밖에있는걸 가져다 쓸수 있음.
-// 콘솔 a, b, result 안과 밖을 잘 구분해야함. 바나나는 에러 안나는데 a, b, result 는 에러다
-// 스코프를 체인처럼 연결했다고 해서 스코프체인이라 하고
+function qqq() {
+  const bananan = 10;
+
+  function add(a, b) {
+    console.log(bananan);
+    const result = a + b;
+  } // scope 이중괄호 안에서만 a, b가 살아있다.
+
+  console.log(a);
+  console.log(b);
+  console.log(result);
+} // scope
+
+// 중괄호 안에 바나나 찾는다. 없으면 밖에있는 중괄호에서 찾음. 없으면 밖에 중괄호로 가서 또 찾음.
+// 매우중요 한것은 중괄호 안에서 밖에있는걸 가져다 쓸수 있음.
+//  qqq 중괄호안에 banana 가있고 그 안에 a,b, result 가 있는것이라 바나나는 에러 안나는데 a, b, result 는 에러다
+// console.log(bananan)를 찾기 위해 밖에 {} 에서 찾아오는 작업을 스코프를 체인처럼 연결했다고 해서 scope-chain 이라 함.
+
 // 하나의 함수는 하나의 기능만 하게끔 만드는게 암묵적 룰이다.
-// return은 결과반환히고 함수종료힌다라는 뜻
+
+// return은 결과반환하고 함수종료힌다라는 뜻

@@ -1,4 +1,4 @@
-// node.js 로 토큰생성 api를 어떻게 만들까?
+// createTokenOfPhone 함수 만들기
 
 function createTokenOfPhone(myPhone) {
   // 1. 핸드폰번호 자릿수 맞는지 확인하기.(틀리면 에러메세지 보내기 / 맞으면 2번으로 가야함 )
@@ -65,7 +65,7 @@ function createTokenOfPhone(myPhone) {
   );
   console.log(result);
 
-  // 3. 핸드폰번호에 토큰 전송하기.
+  // 3. 핸드폰번호에 토큰 전송하기.(간단하게 콘솔로만 확인하기)
   console.log(myPhone + "번호로 인증번호" + result + "를 전송합니다!");
 }
 
