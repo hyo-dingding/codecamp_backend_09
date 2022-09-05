@@ -1,11 +1,17 @@
+// req 받고 res 보내기
 import express from "express";
 import swaggerUi from "swagger-ui-express";
+import cors from "cors";
 
 import { getToken, CheckPhone, sendTokenToSMS } from "./phone.js";
-import { options } from "./swagger/config.js"; // 설정파일
+import { options } from "./swagger/config.js";
 import swaggerJSDoc from "swagger-jsdoc";
 
 const app = express();
+app.use(
+  cors()
+  // {origin: "http://127.0.0.1:5500/",}
+); // 콜스 허용을 해줘야함
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options))); // 설정 API 만들 수 있음 미들웨어 함수
 app.get("/boards", function (req, res) {
@@ -33,7 +39,6 @@ app.post("/tokens/phone", (req, res) => {
   const myToken = getToken();
 
   console.log(sendTokenToSMS(myPhone, myToken));
-
   res.send("인증완료!!");
 });
 

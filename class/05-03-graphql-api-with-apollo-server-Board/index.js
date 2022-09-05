@@ -2,14 +2,15 @@
 import { ApolloServer, gql } from "apollo-server";
 import { CheckPhone, getToken, sendTokenToSMS } from "./phone.js";
 
-// The GraphQL schema
 const typeDefs = gql`
   # 입력에 들어가는타입은 input 으로 써줘야함
+  #  !는 안붙여도 되나?
   input CreateBoardInput {
     writer: String
     title: String
     contents: String
   }
+  #  나만의 타입을 만듬. 객체형태 { Number: 1, writer: "다다", title: "다다입니당", contents: "가가가가",} 이것을 나타냄
   type MyReturn {
     number: Int
     writer: String
@@ -18,16 +19,15 @@ const typeDefs = gql`
   }
   type Query {
     # fetchBoards: MyReturn 겍체 한개를 의미함.
-    fetchBoards: [MyReturn] # 배열안에 객체를 의미
+    fetchBoards: [MyReturn] # 배열안에 객체를 의미 [{}]
   }
   type Mutation {
-    # createBoard(writer: String, title: String, contents: String): String => 입력데이터를 낱게로 보냄
+    # createBoard(writer: String, title: String, contents: String): String => 입력데이터를 낱개로 보냄
     createBoard(createBoardInput: CreateBoardInput!): String # => 입력 데이터를 묶어서 보냄(실무형)
     createTokenOfPhone(myPhone: String): String
   }
 `;
 
-// A map of functions which return data for the schema.
 const resolvers = {
   Query: {
     fetchBoards: (parent, args, ctx, info) => {

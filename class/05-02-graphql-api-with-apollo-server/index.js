@@ -8,7 +8,7 @@ const typeDefs = gql`
   }
 `;
 
-// A map of functions which return data for the schema.
+// resolvers 가 API임
 const resolvers = {
   Query: {
     fetchBoards: () => {
