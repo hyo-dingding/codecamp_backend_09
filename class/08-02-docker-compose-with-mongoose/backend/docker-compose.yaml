@@ -1,0 +1,25 @@
+# 설정파일 yml /yaml (야믈파일)
+# json은 객체형태로{}그룹핑, 야믈파일은 들여쓰기로 그룹핑함.
+# context: .  현재위치에 도커파일잇어요
+# dockerfile: Dockerfile 도커파일이름이 뭔데: 도커파일이에요
+# 포트포어딩도 미리 지정할수있음 ports: - 3000:3000
+# image: mongo:5 docker.mongo 파일필요없음
+version: "3.7"
+
+services:
+  my-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./index.js:/myfolder/index.js
+      - ./email.js:/myfolder/email.js
+      # - ./*.js:/myfolder/email.js
+
+    ports:
+      - 3000:3000
+
+  my-database:
+    image: mongo:5
+    ports:
+      - 27017:27017
