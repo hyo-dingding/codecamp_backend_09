@@ -1,18 +1,28 @@
 # 컴퓨터 만드는 설명서  실행시 내컴터 안에 작은 컴터가 만들어짐. (최종목적 내가 만든 esperss프로그램을 설정하는것임.)
+# 실행시 내컴터 안에 작은 컴터가 만들어짐. (최종목적 내가 만든 esperss프로그램을 설정하는것임.)
 
-# 1. 운영체제 설치
+# 1. 운영체제 설치  - 운영체제를 이미지라고 부름
 FROM ubuntu:22.04
 
+# 예제
+# aaa라는 폴더 만들기 
+# 컴퓨터가 켜진다음에 내가 하고싶은 명령어들 쓰는공간임.
+# RUN mkdir aaa  이컴퓨터안에서 aaa라는 폴더를 실행시켜줘
+# RUN cd aaa  그 aaa폴더안에 들어가
 
 # 2. node.js와 yarn 설치하기
-RUN apt install node.js
-RUN npm install -g yarn
+# RUN apt install node.js -> ubuntu일 경우 node 설치시 명령어   
+# RUN brew install node.js -> 맥일 경우 node 설치시 명령어  
+
+# RUN npm install -g yarn -> npm가지고 yarn 설치
 
 # 3. 내컴퓨터에 있는 폴더나 파일을 도커 컴퓨터 안으로 복사하기
+
 COPY 내컴퓨터 폴더 위치 도커 컴퓨터 폴더 위치
 
 
 # 4. 도커 안에서 express 실행시키기
-CMD yarn start:dev
+; CMD yarn start:dev
 
+CMD node index.js
 
