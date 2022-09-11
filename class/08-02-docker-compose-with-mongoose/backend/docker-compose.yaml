@@ -14,6 +14,7 @@ services:
     volumes:
       - ./index.js:/myfolder/index.js
       - ./email.js:/myfolder/email.js
+      - ./src:/myfolder/src
       # - ./*.js:/myfolder/email.js
 
     ports:
@@ -23,3 +24,6 @@ services:
     image: mongo:5
     ports:
       - 27017:27017
+# 현재 index.js 가 변경되면  도커안에있는 myfolder 안에 index.js 를 변경해줘
+# volumes 안에 이파일은 build를 다시 할 필요없음
+# package.js가 변경됬을땐 build를 다시하자

@@ -4,7 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import cors from "cors";
 import "dotenv/config.js"; // 젤 상위 폴더에서 적어주기
 import { getToken, CheckPhone, sendTokenToSMS } from "./phone.js";
-import mongoose from "mongoose";
+import mongoose from "mongoose"; //
 
 import {
   checkEmail,
@@ -20,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
 app.get("/boards", async function (req, res) {
+  // 1. 데이터를 조회하는 로직 => DB에 접속해서 데이터 꺼내오기
   // const result = [
   //   { Number: 1, writer: "가가", title: "가가입니당", contents: "가가가가" },
   //   { Number: 2, writer: "나나", title: "나나입니당", contents: "나나나나" },
@@ -27,22 +28,23 @@ app.get("/boards", async function (req, res) {
   // ];
   //
   const result = await Board.find();
-
+  // 2. DB에서 꺼내온 결과를 브라우저에 응답(response)주기
   res.send(result);
 });
 
 app.post("/boards", async function (req, res) {
+  // 1 브라우저에서 보내준 데이터 확인하기
   console.log(req.body);
-  // 2 데이터를 등록하는 로직 => DB에 접속해서 데이터저장하기
+  // 2. 데이터 등록하는 로직 => DB로 접속해서 데이터 저장하기
   const board = new Board({
     writer: req.body.writer,
     title: req.body.title,
     contents: req.body.contents,
   });
-  await board.save();
-  // DB로 전송됨.
 
-  //3
+  await board.save(); // DB에 전송됨
+
+  //3. DB에 저장이 잘 됐으면, 결과를 브라우저에 응답(response) 주기
   res.send("게시물 등록에 성공하였습니다.");
 });
 
@@ -77,7 +79,7 @@ app.post("/users", function (req, res) {
   res.send("가입완료!!");
 });
 
-// mongodb접속! 잘되는가 확인
+//  mongodb접속! 잘되는가 확인 이름을 가지고 연결한다.(네임리졸루션)
 mongoose.connect("mongodb://my-database:27017/my-docker04");
 
 // backend api접속
@@ -86,5 +88,5 @@ app.listen(3000, () => {
 });
 
 // 1. mongodb접속! 잘되는가 확인
-// 2. 등록이잘되는다
+// 2. 등록이잘되는가?
 // 3. 조회목록 api로 확인하기

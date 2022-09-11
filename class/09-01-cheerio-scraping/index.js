@@ -1,5 +1,5 @@
-import axios from "axios";
-import cheerio from "cheerio";
+cheerioimport axios from "axios";
+import  from "cheerio";
 
 // async function aaa() {
 //   // axios.get으로 요쳥해서 html코드 받아오기 -> 스크래핑(긁어오기)
