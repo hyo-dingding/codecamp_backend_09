@@ -2,7 +2,7 @@ import Puppeteer from "puppeteer";
 import mongoose from "mongoose";
 import { Stock } from "./models/stock.models.js";
 
-// mongodb접속! 잘되는가 확인
+// mongodb접속! 잘되는가 확인 / 크롤러접속 주소 mongodb로 변경
 mongoose.connect("mongodb://localhost:27017/my-docker04");
 
 async function startCrawling() {
@@ -36,8 +36,12 @@ async function startCrawling() {
       price: Number(price.replace(",", "")),
       //price 넣으면안됨 , 있으면 문자로 인식함 숫자로 변경해야함.
     });
+
+    // DB에 넣어주기
     await stock.save();
   }
+  // 크롤링 한 데이터가 DB에 넣기
+
   await browser.close();
 }
 startCrawling();

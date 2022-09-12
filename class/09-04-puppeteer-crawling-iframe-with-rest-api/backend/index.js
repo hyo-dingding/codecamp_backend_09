@@ -78,7 +78,7 @@ app.post("/users", function (req, res) {
   res.send("가입완료!!");
 });
 
-//////// 조회해오는 api
+//////// 조회해오는 api   // 크롤링 한 데이터가 DB에 넣은것을 이것을 조회하는 API
 app.get("/stock", async (req, res) => {
   const stocks = await Stock.find(); //데이터 조회
   // res.send("주식 데이터 결과");
