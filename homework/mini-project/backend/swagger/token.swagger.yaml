@@ -1,0 +1,38 @@
+paths:
+    /tokens/phone:
+        post:
+            summary: 인증 토큰 요청하기
+            tags: [tokens]
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                myPhone:
+                                    type: string
+                                    example: "01022223333"
+            responses:
+                200:
+                    description: 성공
+
+        patch:
+            summary: 인증요청
+            tags: [tokens]
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                myPhone:
+                                    type: string
+                                    example: "01022223333"
+                                myToken:
+                                    type: string
+                                    example: "876081"
+            responses:
+                200:
+                    description: 성공
