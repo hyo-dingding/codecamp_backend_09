@@ -63,7 +63,7 @@ app.post("/user", async (req, res) => {
 
     // 4. DB 저장 후 회원 가입 환영 이메일 전송하기
 
-    // res.send("가입완료!!");
+    res.send("가입완료!!");
     // 5. 생성된 user의 _id를  클라이언트에 반환하기
 });
 

@@ -6,7 +6,7 @@ const getValidationNumber = async () => {
   const myPhone2 = document.getElementById("PhoneNumber02").value;
   const myPhone3 = document.getElementById("PhoneNumber03").value;
   const myPhone = myPhone1 + myPhone2 + myPhone3;
-
+  // 핸드폰 인증 완료 API 요청
   axios
     .post("http://localhost:3000/tokens/phone", {
       myPhone: myPhone,

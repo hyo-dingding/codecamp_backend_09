@@ -36,19 +36,16 @@ app.post("/tokens/phone", async (req, res) => {
     await token.save();
   }
 
-  // 3. 핸드폰번호에 토큰 전송하기.
+  // 3. 핸드폰번호에 토큰 전송하기.(send 두번보내서 충돌남 한번으로 변경!)
   sendTokenToSMS(myPhone, myToken);
-  res.send(
-    myPhone.slice(0, 3) +
-      "-" +
-      myPhone.slice(3, 7) +
-      "-" +
-      myPhone.slice(7, 11) +
-      "으로  인증 문자가 전송되었습니다."
-  );
 
+  const data1 = myPhone.slice(0, 3);
+  const data2 = myPhone.slice(3, 7);
+  const data3 = myPhone.slice(7, 11);
   // postman 요청 결과주기
-  res.send(`${myToken}인증번호 전송에 성공하셨습니다.`);
+  res.send(
+    `${data1}-${data2}-${data3} 으로 ${myToken} 인증번호 전송에 성공하셨습니다 `
+  );
 });
 
 // --------------------------------------------------
