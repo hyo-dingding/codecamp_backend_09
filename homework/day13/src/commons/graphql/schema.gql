@@ -3,7 +3,6 @@
 # ------------------------------------------------------
 
 type Starbucks {
-  number: Int!
   menu: String!
   price: Int!
   kcal: Int!
@@ -19,7 +18,7 @@ type Query {
 }
 
 type Mutation {
-  createStarbucks(createStarbucksInput: CreateStarbucksInput!): Float!
+  createStarbucks(createStarbucksInput: CreateStarbucksInput!): String!
 }
 
 input CreateStarbucksInput {

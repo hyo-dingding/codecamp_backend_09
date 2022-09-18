@@ -12,7 +12,7 @@ export class StarbucksResolver {
     return this.starbucksService.findAll();
   }
 
-  @Mutation(() => Number)
+  @Mutation(() => String)
   createStarbucks(
     @Args('createStarbucksInput') createStarbucksInput: CreateStarbucksInput,
   ) {
