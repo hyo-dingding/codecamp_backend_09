@@ -116,3 +116,32 @@ solution(
     ]
 ); //	[[4,6],[7,9]]
 solution([[1], [2]], [[3], [4]]); //[[4],[6]]
+
+// [3]
+function solution(arr1, arr2) {
+    let answer = [];
+
+    for (let i = 0; i < arr1.length; i++) {
+        answer[i] = [];
+
+        for (let j = 0; j < arr1[i].length; j++) {
+            let sum = arr1[i][j] + arr2[i][j];
+
+            answer[i].push(sum);
+        }
+    }
+
+    return answer;
+}
+
+solution(
+    [
+        [1, 2],
+        [2, 3],
+    ],
+    [
+        [3, 4],
+        [5, 6],
+    ]
+); //	[[4,6],[7,9]]
+solution([[1], [2]], [[3], [4]]); //[[4],[6]]
