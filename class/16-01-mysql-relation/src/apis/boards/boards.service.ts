@@ -1,4 +1,3 @@
-
 import { CreateBoardInput } from './dto/createBoard.Input';
 // 비지니스 로직
 
@@ -8,7 +7,8 @@ export class BoardsService {
   // qqq() {
   //   return 'Hello World';
   // }
-  findAll() {  // 전체조회
+  findAll() {
+    // 전체조회
     // 1. 데이터를 조회하는 로직 => DB에 접속해서 데이터 꺼내오기
     const result = [
       {
@@ -36,7 +36,7 @@ export class BoardsService {
   }
   create({ createBoardInput }) {
     // 1. 브라우저에서 보내준 데이터 확인하기
-    console.log(CreateBoardInput.writer);
+    console.log(createBoardInput.writer);
     console.log(createBoardInput.title);
     console.log(createBoardInput.contents);
 

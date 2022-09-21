@@ -8,14 +8,13 @@ const app = express();
 
 // 상품 구매하기 API
 app.post("/products/buy", (req, res) => {
-    // 어떤 내용이 올지 실무적으로 가정하자
     // 1. 가진돈 검증하는 코드(대략 10줄 정도)
     const cashService = new CashService();
     const hasMoney = cashService.cashValue();
 
-    // 2. 판매여부 검증하는 코드(대략 10줄 정도 => 2줄) 중고상품일경우 상품이 이미 팔린것일 수 있기때문에
-    // zzz(객체)
-    const productService = new ProductsService(); // 일반적 관례
+    // 2. 판매여부 검증하는 코드(대략 10줄 정도 => 2줄)
+
+    const productService = new ProductsService();
     const isSoldout = productService.checkSoldout();
 
     // 3. 상품 구매하는 코드
@@ -42,6 +41,8 @@ app.post("/products/refund", (req, res) => {
         res.send("상품 환불 완료!");
     }
 });
+
+// 변수명 지을때 is~~ : ~~이다/아니다(true/false), has~~ :가진게 있다/없다 라고 잣는다
 
 // 판매여부 검증하는 코드 중복되있는 부분 따로 빼주자! 어떻게 뺄거니?
 // 상품관련된것들을 products 끼리 한번에 묶어놓고 import 해서 쓰자

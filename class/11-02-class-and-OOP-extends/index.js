@@ -31,10 +31,10 @@ class Monster {
     //     console.log("도망가자!");
     // };
 }
-
+// 공중몬스터 : 자식 / Monster : 부모
 class 공중몬스터 extends Monster {
     constructor(qqq) {
-        super(qqq);
+        super(qqq); //   super : 부오에 생성자에 토스 해주는 방식
     }
     run = () => {
         console.log("날라서 도망가자"); // 설명서 만듬
@@ -73,8 +73,7 @@ myMonster2.run();
 // 2. class 공중몬스터() ,class 지상몬스터() 만들기
 // 3. 몬스터 기능을 물려받아서 넣는다
 
-
-// attack 다중상속은 안됨. 
+// attack 다중상속은 안됨.
 
 //  extends ? 부모의 기능을 자식에게 물려주는것이 상속임.
 // 내 공격력은undefined야!! 초기값 안줘서 (20),(50)

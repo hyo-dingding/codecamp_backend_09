@@ -5,13 +5,12 @@ import { CashService } from "./services/cash.js";
 
 export class ProductController {
     buyProduct = (req, res) => {
-        // 어떤 내용이 올지 실무적으로 가정하자
         // 1. 가진돈 검증하는 코드(대략 10줄 정도)
         const cashService = new CashService();
         const hasMoney = cashService.cashValue();
 
         // 2. 판매여부 검증하는 코드(대략 10줄 정도 => 2줄) 중고상품일경우 상품이 이미 팔린것일 수 있기때문에
-        // zzz(객체)
+ 
         const productService = new ProductsService(); // 일반적 관례
         const isSoldout = productService.checkSoldout();
 

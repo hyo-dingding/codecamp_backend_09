@@ -1,4 +1,4 @@
-// index.js
+// index.js 설정파일
 
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
