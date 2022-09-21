@@ -25,6 +25,36 @@ export class StarbucksService {
         sugar: 8,
         caffeine: 75,
       },
+      {
+        menu: '카라멜 마끼아또',
+        price: 6000,
+        kcal: 210,
+        saturated_fat: 4,
+        protein: 6,
+        salt: 70,
+        sugar: 10,
+        caffeine: 75,
+      },
+      {
+        menu: '블랙 글레이즈드 라떼',
+        price: 6500,
+        kcal: 110,
+        saturated_fat: 4,
+        protein: 6,
+        salt: 70,
+        sugar: 50,
+        caffeine: 75,
+      },
+      {
+        menu: '바닐라라떼',
+        price: 5000,
+        kcal: 30,
+        saturated_fat: 4,
+        protein: 7,
+        salt: 70,
+        sugar: 8,
+        caffeine: 75,
+      },
     ];
 
     // 2. DB에서 꺼내온 결과를 브라우저에 응답(response) 주기
@@ -33,14 +63,15 @@ export class StarbucksService {
   create({ createStarbucksInput }) {
     // 1. 브라우저에서 보내준 데이터 확인하기
 
-    console.log(`name:${createStarbucksInput.menu}`);
-    console.log(`price:${createStarbucksInput.price}`);
-    console.log(`kcal:${createStarbucksInput.kcal}`);
-    console.log(`saturated_fat:${createStarbucksInput.saturated_fat}`);
-    console.log(`protein:${createStarbucksInput.protein}`);
-    console.log(`salt:${createStarbucksInput.salt}`);
-    console.log(`sugar:${createStarbucksInput.sugar}`);
-    console.log(`caffeine:${createStarbucksInput.caffeine}`);
+    // console.log(`name:${createStarbucksInput.menu}`);
+    // console.log(`price:${createStarbucksInput.price}`);
+    // console.log(`kcal:${createStarbucksInput.kcal}`);
+    // console.log(`saturated_fat:${createStarbucksInput.saturated_fat}`);
+    // console.log(`protein:${createStarbucksInput.protein}`);
+    // console.log(`salt:${createStarbucksInput.salt}`);
+    // console.log(`sugar:${createStarbucksInput.sugar}`);
+    // console.log(`caffeine:${createStarbucksInput.caffeine}`);
+    console.log({createStarbucksInput});
 
     // 2. 데이터를 등록하는 로직 => DB에 접속해서 데이터 저장하기
     //

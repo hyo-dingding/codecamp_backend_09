@@ -37,7 +37,9 @@ app.post("/user", async (req, res) => {
     //  if문에 조건을 핸드폰번호없거나 isAuth false일때 조건으로 하고  else에서 true일때로
     // 핸드폰 번호가 없거나 isAuth가 false 라면 로직
     // 1. 클라이언트에게 422상태코드와 "에러!! 핸드폰 번호가 인증되지 않았습니다. " 반환하기
-    if (!(await Token.findOne({ phone: phone })) || (await Token.findOne({ isAuth: false }))) {
+    const res_token = await Token.findOne({ phone: phone });
+    // console.log("THIS IS FUCKING IDIOT : " + res_token);
+    if (res_token == null || res_token.isAuth != true) {
         return res.status(422).send("에러! 핸드폰 번호가 인증되지 않았습니다.");
         // isAuth가 true 라면 로직
         // 1. prefer 를 cheerio를 통해 scraping 하고 OG태그 정보를 다른 입력받은 정보와 함께 user DB에 저장
@@ -63,7 +65,8 @@ app.post("/user", async (req, res) => {
 
     // 4. DB 저장 후 회원 가입 환영 이메일 전송하기
 
-    res.send("가입완료!!");
+    // res.status(200)
+    //     .send("가입완료!!")
     // 5. 생성된 user의 _id를  클라이언트에 반환하기
 });
 
