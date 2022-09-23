@@ -5,9 +5,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @ObjectType()
 export class ProductCategory {
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => String)
+  @Field()
   id: string;
-  @Column({ unique: true })
-  @Field(() => String)
+  @Column()
+  @Field()
   name: string;
 }
+
+// @OneToMany() 사실 존재하지 않음/  타입오알엠 역할임. qqq: Product

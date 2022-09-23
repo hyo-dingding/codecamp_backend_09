@@ -1,0 +1,94 @@
+<!-- [ 1~200까지 임의의 숫자 받아오기] -->
+<!-- `http://numbersapi.com/random?min=1&max=200` -->
+
+<!-- [게시글번호 조회하기] -->
+<!-- `https://koreanjson.com/posts/${num}` -->
+
+<!-- [ 조회한유저의 다른게시글 보기 ] -->
+<!-- `https://koreanjson.com/posts?userId=${userId}` -->
+<!-- 독립적요청이 아니라 한번에 요청하기 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <title>콜백과 친구들</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script>
+            // 실할 수록 안쪽으로
+            function myCallback() {
+                const aa = new XMLHttpRequest();
+                aa.open("get", `http://numbersapi.com/random?min=1&max=200`);
+                aa.send();
+                //  로드끝나면 이함수 실행시켜줘 인자로 함수가 들어감. 이것이 콜백함수
+                aa.addEventListener("load", (res) => {
+                    // 결과값을넣어서 실행시켜줌
+                    console.log(res); // target-> res "31" response.split
+                    const num = res.target.response.split(" ")[0]; // 랜덤숫자[31]
+                    const bb = new XMLHttpRequest();
+                    bb.open("get", `https://koreanjson.com/posts/${num}`);
+                    bb.send();
+                    bb.addEventListener("load", (res) => {
+                        console.log(res); //  문자열임 response "{\"id\":176,\"title\":\"형사피의자 또
+                        const userId = JSON.parse(res.target.response).UserId;
+
+                        const cc = new XMLHttpRequest();
+                        cc.open(
+                            "get",
+                            `https://koreanjson.com/posts?userId=${userId}`
+                        );
+                        cc.send();
+                        cc.addEventListener("load", (res) => {
+                            console.log(res); // 최종결과값
+                        });
+                    });
+                });
+            }
+
+            // new Promise(() => {
+            //     // 여기서 API요청을 받는다며?
+            //     console.log("성공했습니다!!");
+            // }).then.catch(() => {
+            //     console.log("실패했습니다!!");
+            // });
+            // fetch와 axios 프로미스를 제공하는 기능들 이다
+            function myPromise() {
+                // fetch("http://").then().catch();
+                console.log("첫번째로 실행됩니다");
+                axios
+                    .get(`http://numbersapi.com/random?min=1&max=200`)
+                    .then((res) => {
+                        console.log("두번째로 실행됩니다");
+                        return axios.get(
+                            `http://numbersapi.com/random?min=1&max=200`
+                        );
+                    })
+                    .then((res) => {
+                        console.log("세번째로 실행됩니다");
+                        return axios.get(
+                            `http://numbersapi.com/random?min=1&max=200`
+                        );
+                    })
+                    .then((res) => {
+                        console.log("네번째로 실행됩니다");
+                    });
+                console.log("다섯번째로 실행됩니다");
+                //프로미스 들은 하나로 그룹핑되는것 -> 프로미스체인
+                // 프로미스 안애서 프로미스를 리턴하면 .then안에 return 값이 결과가 연결된다.
+            }
+            // fetch와 axios등 -> 대표적인 프로미스 (.then 등의 기능)을 지원하는기능
+            // fetch와 axios 등을 기다리는 두가지 방법
+            // 1) .then()활용
+            // 2) await활용
+            async function myAsyncAwait() {
+                await axios.get(`http://numbersapi.com/random?min=1&max=200`);
+                await axios.get(`http://numbersapi.com/random?min=1&max=200`);
+                await axios.get(`http://numbersapi.com/random?min=1&max=200`);
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="myCallback()">Callback연습하기</button>
+        <button onclick="myPromise()">Promise연습하기</button>
+        <button onclick="myAsyncAwait()">AsyncAwait연습하기</button>
+    </body>
+</html>
