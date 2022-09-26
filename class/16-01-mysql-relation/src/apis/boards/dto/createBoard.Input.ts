@@ -10,6 +10,4 @@ export class CreateBoardInput {
   contents: string;
 }
 
-
-
 // 데이터 전송하는 객체 묶어서 보내라 데이터 프렌트포 오브젝트

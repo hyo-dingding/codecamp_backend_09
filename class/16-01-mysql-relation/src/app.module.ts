@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { BoardsModule } from './apis/boards/boards.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Board } from './apis/boards/entities/board.entity';
+// import { Board } from './apis/boards/entities/board.entity';
 import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [

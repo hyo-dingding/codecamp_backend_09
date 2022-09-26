@@ -19,5 +19,5 @@ export class Board {
 
 // db 테이블에 들어갈 내용
 // 그래프큐엘의 필드를 인폴트 해주고 그래프큐엘 타입을 적어줘야함.(대문자)
-//  @Column() mysql 에 저장 
-// @ObjectType() 타입 적어줘야함. 
+//  @Column() mysql 에 저장
+// @ObjectType() 타입 적어줘야함.
