@@ -6,6 +6,7 @@ import { UseGuards } from '@nestjs/common';
 // import { AuthGuard } from '@nestjs/passport';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
 import { IContext } from 'src/commons/types/context';
+
 @Resolver()
 export class UsersResolver {
   constructor(
@@ -18,6 +19,7 @@ export class UsersResolver {
   @Query(() => String)
   // context는 req, res 정보 담는 객체임
   fetchUser(@Context() context: IContext) {
+    context.req.user;
     // 유저정보 꺼내오기
     console.log(context.req.user);
     console.log('fetchUser 실행완료');

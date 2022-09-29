@@ -1,9 +1,11 @@
-import { UnsupportedMediaTypeException } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { UnsupportedMediaTypeException, UseGuards } from '@nestjs/common';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { UsersService } from '../users/user.service';
 import * as bcrypt from 'bcrypt';
 import { AuthService } from './auth.service';
 
+import { IContext } from 'src/commons/types/context';
+import { GqlAuthRefreshAccessGuard } from 'src/commons/auth/gql-auth.guard';
 
 @Resolver()
 export class AuthResolver {
@@ -11,13 +13,12 @@ export class AuthResolver {
     private readonly authsevice: AuthService, //
     private readonly usersService: UsersService,
   ) {}
-  
 
   @Mutation(() => String)
   async login(
     @Args('email') email: string, //
     @Args('password') password: string,
-  
+    @Context() context: IContext,
   ) {
     // 1. email이 일치하는 유저를 DB에서 찾기
     const user = await this.usersService.findOne({ email });
@@ -33,10 +34,23 @@ export class AuthResolver {
       throw new UnsupportedMediaTypeException('비밀번호가 틀렸습니다');
     }
 
+    // 4. RefreshToken(=JWT)을 만들어서 frontend 브라우저 쿠키에 저장해서 보내주기
+    this.authsevice.setRefreshToken({ user, res: context.res });
+
     // 4. 일치하는 유저도 있고 비번도 맞았다면?
 
     // -> accessToken(=> JWT)을 만들어서 브라우저에 전달하기
     // (프론트에서는 브라우저 저장소에 저장해서 필요 시 헤더에 보내줌)
     return this.authsevice.getAccessToken({ user });
+  }
+
+  // refreshToken이 먼저 정상인지 확인 후 아래 로직 시행됨
+  @UseGuards(GqlAuthRefreshAccessGuard)
+  @Mutation(() => String)
+  restoreAccessToken(
+    @Context() context: IContext, //
+  ) {
+    // accessToken(=JWT) 만들어서 브라우저에 전달하기
+    return this.authsevice.getAccessToken({ user: context.req.user });
   }
 }
