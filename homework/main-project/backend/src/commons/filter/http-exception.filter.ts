@@ -1,0 +1,13 @@
+import { Catch, ExceptionFilter, HttpException } from '@nestjs/common';
+
+@Catch(HttpExceptionFilter)
+export class HttpExceptionFilter implements ExceptionFilter {
+  catch(exception: HttpException) {
+    const status = exception.getStatus();
+    const message = exception.message;
+
+    console.log('예외가 발생했어요!');
+    console.log('예외내용', message);
+    console.log('예외 코드', status);
+  }
+}
