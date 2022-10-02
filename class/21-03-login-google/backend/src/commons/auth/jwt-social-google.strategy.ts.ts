@@ -8,8 +8,9 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor() {
     //  super ? 부모 constructor 에 전달하고 싶을때 사용
     super({
-      clientID: '구글에서 제공받은 아이디',
-      clientSecret: '구글에서 제공받은 비밀key',
+      clientID:
+        '894176597694-d1v4t1l5rdcm0i3fq380po5jcnor0tin.apps.googleusercontent.com',
+      clientSecret: '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',
       callbackURL: 'http://localhost:3000/login/google',
       scope: ['email', 'profile'], //네이버 독스나 구글독스에 있음.
     });

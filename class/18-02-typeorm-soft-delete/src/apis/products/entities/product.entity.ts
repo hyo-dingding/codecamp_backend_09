@@ -61,6 +61,7 @@ export class Product {
 
   // @CreateDateColumn()
   // createAt: Date;
+  
   // @UpdateDateColumn()
   // updatedAt: Date;
   @DeleteDateColumn()

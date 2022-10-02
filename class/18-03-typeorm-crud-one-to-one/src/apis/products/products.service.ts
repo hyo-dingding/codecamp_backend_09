@@ -54,8 +54,8 @@ export class ProductsService {
       //   id:
       // }
       ...product,
-      productSaleslocation: result,
-      // result 통채로 넣기  vs아이디만 빼서 넣기 프론트에서 등록결과를 Saleslocation 모두 받을수 없음
+      productSaleslocation: result, // result 통채로 넣기 
+    //  vs id만 빼서 넣기 {id: result.id} 프론트에서 등록결과를 Saleslocation 모두 받을수 없음
       // ProductSaleslocation: {
       //   id: result.id,
       //   // address: result.address,

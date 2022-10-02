@@ -32,11 +32,11 @@ export class AuthResolver {
     if (!isAuth) {
       throw new UnsupportedMediaTypeException('비밀번호가 틀렸습니다');
     }
-
-    // 4. RefreshToken(=JWT)을 만들어서 frontend 브라우저 쿠키에 저장해서 보내주기
+  // 4. 일치하는 유저도 있고 비번도 맞았다면?
+    // 5. RefreshToken(=JWT)을 만들어서 frontend 브라우저 쿠키에 저장해서 보내주기
     this.authsevice.setRefreshToken({ user, res: context.res });
 
-    // 4. 일치하는 유저도 있고 비번도 맞았다면?
+  
 
     // -> accessToken(=> JWT)을 만들어서 브라우저에 전달하기
     // (프론트에서는 브라우저 저장소에 저장해서 필요 시 헤더에 보내줌)

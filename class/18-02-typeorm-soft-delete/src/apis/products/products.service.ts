@@ -14,7 +14,7 @@ export class ProductsService {
   findAll() {
     return this.productRepository.find();
   }
-
+// 소프트 삭제(직접구현) - isDeleted 사용시 where:{isDeleted:false} 
   findOne({ productId }) {
     return this.productRepository.findOne({
       where: { id: productId },
@@ -75,14 +75,14 @@ export class ProductsService {
     // 2. 소프트 삭제(직접구현) - isDeleted
     // (.save, update)
     //  .update({조건},{수정})
-    // this.productRepository.update({ id: productId },{ isDeleted: true, isDeleted: false }, );
+    // this.productRepository.update({ id: productId },{ isDeleted: true} );
     // 3. 소프트 삭제(직접 구현) - deletedAt
     // this.productRepository.update({ id: productId }, { deletedAt: new Date() });
     // 4. 소프트 삭제(TypeORM에서 제공) -softRemove
     //   this.productRepository.softRemove({ id: productId }); // 아이디로만 삭제가능
-
-    //5. typeOrm에서 제공 // 다른coumn으로 도 사용가능
-    const result = await this.productRepository.softDelete({ id: productId });
+    // 애초에 deletedAt
+    //5. typeOrm에서 제공 // 다른softDelete 
+    const result = await this.productRepository.softDelete({ id: productId }); // 다른 컬럼으로 도 삭제가능
     return result.affected ? true : false;
   }
 }

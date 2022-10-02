@@ -1,10 +1,11 @@
 import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from './entities/user.entity';
-import { UsersService } from './user.service';
+
 import * as bcrypt from 'bcrypt';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
 import { IContext } from 'src/commons/types/context';
+import { UsersService } from './user.service';
 // import { AuthGuard } from '@nestjs/passport';
 
 @Resolver()

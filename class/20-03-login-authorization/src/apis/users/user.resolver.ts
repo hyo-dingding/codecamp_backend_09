@@ -37,6 +37,6 @@ export class UsersResolver {
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
 
-    return this.usersService.create({ email, hashedPassword, name, age });
+    return this.usersService.create({ email, hashedPassword, name, age }); // req.user ={email,sub } 저장됨
   }
 }

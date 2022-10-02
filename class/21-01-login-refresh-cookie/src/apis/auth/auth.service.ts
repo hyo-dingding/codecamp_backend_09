@@ -13,7 +13,7 @@ export class AuthService {
       { secret: 'myRefreshKey', expiresIn: '2w' }, //서명하는부분
     );
     // 개발환경
-    res.setHeader('Set-Cookie', `refreshToken= ${refreshToken}`);
+    res.setHeader('Set-Cookie', `refreshToken=${refreshToken}`);
     // 배포환경
     // res.setHeader(  'Set-Cookie', `refreshToken=${refreshToken}; path=/; domain=.mybacksite.com; SameSite=None; Secure; httpOnly;`, );
     // res.setHeader('Access-Control-Allow-Origin', 'https://myfrontsite.com');프론트 도메인사이트임
