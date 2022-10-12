@@ -1,0 +1,45 @@
+dingdingui-MacBookAir:codecamp-backend-09 dingding$ 
+** docker exec -it 9651bd8a75d1 /bin/bash
+
+dingdingui-MacBookAir:codecamp-backend-09 dingding$ docker exec -itc59b1171132c  /bin/bash
+unknown shorthand flag: 'c' in -c59b1171132c
+See 'docker exec --help'.
+dingdingui-MacBookAir:codecamp-backend-09 dingding$ docker exec -it c59b1171132c  /bin/bash
+root@c59b1171132c:/data# ls
+dump.rdb
+root@c59b1171132c:/data# redis-cli
+127.0.0.1:6379> keys *
+(empty array)
+127.0.0.1:6379> set qqq apple
+OK
+127.0.0.1:6379> get qqq
+"apple"
+127.0.0.1:6379> keys *
+1) "qqq"
+127.0.0.1:6379> ttl qqq
+(integer) -1
+127.0.0.1:6379> expire qqq 20
+(integer) 1
+127.0.0.1:6379> ttl qqq
+(integer) 15
+127.0.0.1:6379> ttl qqq
+(integer) 11
+127.0.0.1:6379> ttl qqq
+(integer) 9
+127.0.0.1:6379> ttl qqq
+(integer) 8
+127.0.0.1:6379> ttl qqq
+(integer) 5
+127.0.0.1:6379> ttl qqq
+(integer) 3
+127.0.0.1:6379> ttl qqq
+(integer) 2
+127.0.0.1:6379> ttl qqq
+(integer) 1
+127.0.0.1:6379> ttl qqq
+(integer) 1
+127.0.0.1:6379> ttl qqq
+(integer) -2
+127.0.0.1:6379> ttl qqq
+(integer) -2
+127.0.0.1:6379> quit 
