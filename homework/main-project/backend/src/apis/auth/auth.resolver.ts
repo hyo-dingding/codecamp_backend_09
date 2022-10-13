@@ -1,10 +1,16 @@
-import { UnsupportedMediaTypeException, UseGuards } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  Inject,
+  UnauthorizedException,
+  UnsupportedMediaTypeException,
+  UseGuards,
+} from '@nestjs/common';
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import * as bcrypt from 'bcrypt';
+import { Cache } from 'cache-manager';
 import { GqlAuthRefreshGuard } from 'src/commons/auth/gql-auth.guard';
 import { IContext } from 'src/commons/types/context';
 import { UsersService } from '../users/user.service';
-
 import { AuthService } from './auth.service';
 
 @Resolver()
@@ -12,6 +18,9 @@ export class AuthResolver {
   constructor(
     private readonly authservice: AuthService, //
     private readonly usersService: UsersService,
+
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
   ) {}
 
   @Mutation(() => String)
@@ -42,6 +51,35 @@ export class AuthResolver {
     // (프론트에서는 브라우저 저장소에 저장해서 필요 시 헤더에 보내줌)
     return this.authservice.getAccessToken({ user });
   }
+  @Mutation(() => String)
+  async logout(
+    @Context() context: IContext, //
+  ) {
+    // await this.authservice.blackList({ context });
+
+    try {
+      const accessToken = await context.req.headers['authorization'].replace(
+        'Bearer',
+        '',
+      );
+      const refreshToken = context.req.headers['cookie'].replace(
+        'refreshToken=',
+        '',
+      );
+      await this.cacheManager.set(`accessToken:${accessToken}`, 'myAccessKey', {
+        ttl: 100,
+      });
+      await this.cacheManager.set(
+        `refreshToken:${refreshToken}`,
+        'myRefreshKey',
+        { ttl: 100 },
+      );
+      return '로그아웃에 성공하였습니다';
+    } catch (err) {
+      throw new UnauthorizedException('실패');
+    }
+  }
+
   @UseGuards(GqlAuthRefreshGuard)
   @Mutation(() => String)
   restoreAccessToken(

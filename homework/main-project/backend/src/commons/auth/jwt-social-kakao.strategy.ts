@@ -25,13 +25,20 @@ export class JwtKakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
   // 인가성공부분
   // validate ?   부모의 함수를덮어쓰기 ->오버라이딩
   validate(accessToken, refreshToken, profile) {
+    const profileJson = profile._json;
+    console.log(profileJson);
+
+    const kakao_account = profileJson.kakao_account;
+    console.log(profileJson);
+
+    console.log(kakao_account);
     console.log(accessToken);
     console.log(refreshToken);
     console.log(profile);
 
     return {
       // req.user ={값이 이안에 들어감} 리턴된 값 넣어주기
-      email: (profile.profile_nickname = profile.account_email),
+      email: kakao_account.email,
 
       password: '1111',
       name: profile.displayName,

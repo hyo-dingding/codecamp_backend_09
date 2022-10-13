@@ -6,6 +6,7 @@ import { ProductSaleslocation } from '../productSaleslocations/entities/productS
 import { ProductCategory } from '../productsCategory/entities/productCategory.entity';
 import { User } from '../users/entities/user.entity';
 import { ProductTag } from '../productTags/entities/productTag.entity';
+import { ProductImages } from '../productImages/entities/productImages.entity';
 
 @Injectable()
 export class ProductService {
@@ -24,6 +25,9 @@ export class ProductService {
 
     @InjectRepository(ProductTag)
     private readonly ProductTagsRepository: Repository<ProductTag>,
+
+    @InjectRepository(ProductImages)
+    private readonly ProductImagesRepository: Repository<ProductImages>,
   ) {}
 
   findAll() {
@@ -33,6 +37,7 @@ export class ProductService {
         'productCategory',
         'user',
         'productTags',
+        'productImages',
       ],
     });
   }
@@ -44,6 +49,7 @@ export class ProductService {
         'productCategory',
         'user',
         'productTags',
+        'productImages',
       ],
     });
   }
@@ -54,7 +60,7 @@ export class ProductService {
     });
   }
 
-  async create({ createProductInput }) {
+  async create({ createProductInput, productImages }) {
     const {
       productSaleslocation,
       productCategoryId,
@@ -67,13 +73,6 @@ export class ProductService {
       ...productSaleslocation,
     });
 
-    // const result2 = await this.productCategoryRepository.save({
-    //   ...productCategory,
-    // });
-
-    // const result3 = await this.userRepository.save({
-    //   ...user,
-    // });
     const temp = [];
 
     for (let i = 0; i < productTags.length; i++) {
@@ -97,6 +96,7 @@ export class ProductService {
     const result4 = await this.productRepository.save({
       ...product,
       productSaleslocation: result1,
+
       productCategory: {
         id: productCategoryId,
       },
@@ -105,8 +105,20 @@ export class ProductService {
       },
       productTags: temp,
     });
+
+    // let Img = [];
+    for (let i = 0; i < productImages.length; i++) {
+      // Img.push(productImages[i]);
+
+      await this.ProductImagesRepository.save({
+        productImages: productImages[i],
+        isMain: i === 0 ? true : false,
+        productId: result4.id,
+      });
+    }
     return result4;
   }
+
   update({ productId, updateProductInput }) {
     const myproduct = this.productRepository.findOne({
       where: { id: productId },

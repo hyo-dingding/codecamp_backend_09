@@ -30,8 +30,10 @@ export class ProductResolver {
   @Mutation(() => Product)
   createProduct(
     @Args('createProductInput') createProductInput: CreateProductInput,
+    @Args({ name: 'productImages', type: () => [String] })
+    productImages: string[],
   ) {
-    return this.productService.create({ createProductInput });
+    return this.productService.create({ createProductInput, productImages });
   }
 
   @Mutation(() => Product)

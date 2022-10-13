@@ -7,15 +7,20 @@ import { ProductSaleslocation } from '../productSaleslocations/entities/productS
 import { ProductCategory } from '../productsCategory/entities/productCategory.entity';
 import { User } from '../users/entities/user.entity';
 import { ProductTag } from '../productTags/entities/productTag.entity';
+import { Payment } from '../payment/entities/payment.entity';
+
+import { ProductImages } from '../productImages/entities/productImages.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       Product,
+      Payment,
       ProductSaleslocation,
       ProductCategory,
       User,
       ProductTag,
+      ProductImages,
     ]),
   ],
   providers: [

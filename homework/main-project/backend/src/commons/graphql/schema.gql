@@ -8,6 +8,7 @@ type User {
   phone: String!
   email: String!
   age: Int!
+  point: Int!
 }
 
 type ProductSaleslocation {
@@ -28,20 +29,23 @@ type ProductTag {
   products: [Product!]!
 }
 
-type ProductPay {
-  id: String!
-  name: String!
-  paymentDate: String!
-  total: Int!
-  paymentTime: Int!
-  isPaySoldout: Boolean!
-  isCancel: Boolean!
-  user: User!
-}
-
 type ProductCategory {
   id: String!
   name: String!
+}
+
+type Payment {
+  id: String!
+  impUid: String!
+  amount: Int!
+  status: PAYMENT_STATUS_ENUM!
+  user: User
+  createAt: DateTime!
+}
+
+enum PAYMENT_STATUS_ENUM {
+  PAYMENT
+  CANCEL
 }
 
 type Product {
@@ -51,10 +55,17 @@ type Product {
   price: Int!
   isSoldout: Boolean!
   productSaleslocation: ProductSaleslocation!
-  productPay: ProductPay!
+  payment: Payment!
   productCategory: ProductCategory!
   user: User!
   productTags: [ProductTag!]!
+}
+
+type ProductImages {
+  id: String!
+  productImages: String!
+  isMain: Boolean!
+  productId: Product!
 }
 
 type Query {
@@ -67,8 +78,9 @@ type Query {
 
 type Mutation {
   login(email: String!, password: String!): String!
+  logout: String!
   restoreAccessToken: String!
-  createProduct(createProductInput: CreateProductInput!): Product!
+  createProduct(createProductInput: CreateProductInput!, productImages: [String!]!): Product!
   updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
   deleteProduct(productId: String!): Boolean!
   restoreProduct(productId: String!): Boolean!
@@ -76,6 +88,10 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUserPwd(userId: String!, updateUserInput: UpdateUserInput!): User!
   deleteLoginUser(userId: String!): Boolean!
+  createPayment(impUid: String!, amount: Int!): Payment!
+  cancelPayment(impUid: String!): Payment!
+  uploadFiles(files: [Upload!]!): [String!]!
+  updateImages(productId: String!, productImages: [String!]!): [ProductImages!]!
 }
 
 input CreateProductInput {
@@ -124,3 +140,6 @@ input UpdateUserInput {
   email: String
   age: Int
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload

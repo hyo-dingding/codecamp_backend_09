@@ -14,8 +14,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProductTag } from 'src/apis/productTags/entities/productTag.entity';
-import { ProductPay } from 'src/apis/productsPay/entities/productPay.entity';
+// import { ProductPay } from 'src/apis/productsPay/entities/productPay.entity';
 import { ProductCategory } from 'src/apis/productsCategory/entities/productCategory.entity';
+import { Payment } from 'src/apis/payment/entities/payment.entity';
 
 @Entity()
 @ObjectType()
@@ -42,14 +43,20 @@ export class Product {
   @Field(() => ProductSaleslocation)
   productSaleslocation: ProductSaleslocation;
   // [상품결제] 1:1
+  // @JoinColumn()
+  // @OneToOne(() => ProductPay)
+  // @Field(() => ProductPay)
+  // productPay: ProductPay;
+
   @JoinColumn()
-  @OneToOne(() => ProductPay)
-  @Field(() => ProductPay)
-  productPay: ProductPay;
+  @OneToOne(() => Payment)
+  @Field(() => Payment)
+  payment: Payment;
 
   // [상품이미지] 1:다
-  // @OneToMany(() => ProductImage)
-  // productImage: ProductImage;
+  // @OneToMany(() => ProductFile)
+  // @Field(() => ProductFile)
+  // productfile: ProductFile;
 
   // [카테고리] 다:1
   @ManyToOne(() => ProductCategory)
