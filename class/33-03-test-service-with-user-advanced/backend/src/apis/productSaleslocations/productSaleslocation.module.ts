@@ -15,5 +15,4 @@ import { ProductSaleslocation } from './entities/productSaleslocation.entity';
     ProductSaleslocationService,
   ],
 })
-export class ProductSaleslocationModule {
-}
+export class ProductSaleslocationModule {}
