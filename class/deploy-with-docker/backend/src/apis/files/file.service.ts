@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Storage } from '@google-cloud/storage';
 
 @Injectable()
-export class ProductImagesService {
+export class FilesService {
   async upload({ files }) {
     console.log(files);
 
