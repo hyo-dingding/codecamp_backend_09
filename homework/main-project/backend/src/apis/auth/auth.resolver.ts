@@ -8,10 +8,14 @@ import {
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import * as bcrypt from 'bcrypt';
 import { Cache } from 'cache-manager';
-import { GqlAuthRefreshGuard } from 'src/commons/auth/gql-auth.guard';
+import {
+  GqlAuthAccessGuard,
+  GqlAuthRefreshGuard,
+} from 'src/commons/auth/gql-auth.guard';
 import { IContext } from 'src/commons/types/context';
 import { UsersService } from '../users/user.service';
 import { AuthService } from './auth.service';
+import * as jwt from 'jsonwebtoken';
 
 @Resolver()
 export class AuthResolver {
@@ -51,6 +55,7 @@ export class AuthResolver {
     // (프론트에서는 브라우저 저장소에 저장해서 필요 시 헤더에 보내줌)
     return this.authservice.getAccessToken({ user });
   }
+  @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => String)
   async logout(
     @Context() context: IContext, //
@@ -59,21 +64,41 @@ export class AuthResolver {
 
     try {
       const accessToken = await context.req.headers['authorization'].replace(
-        'Bearer',
+        'Bearer ',
         '',
       );
       const refreshToken = context.req.headers['cookie'].replace(
         'refreshToken=',
         '',
       );
-      await this.cacheManager.set(`accessToken:${accessToken}`, 'myAccessKey', {
-        ttl: 100,
-      });
+
+      jwt.verify(accessToken, 'myAccessKey');
+
+      console.log(jwt.verify(accessToken, 'myAccessKey'));
+      jwt.verify(refreshToken, 'myRefreshKey');
+      console.log('@@@@@@@@@@@@');
+
+      await this.cacheManager.set(
+        `accessToken:${accessToken}`,
+        'accessToken',
+
+        {
+          ttl:
+            jwt.verify(accessToken, 'myAccessKey')['exp'] -
+            jwt.verify(accessToken, 'myAccessKey')['iat'],
+        },
+      );
+
       await this.cacheManager.set(
         `refreshToken:${refreshToken}`,
-        'myRefreshKey',
-        { ttl: 100 },
+        'refreshToken',
+        {
+          ttl:
+            jwt.verify(refreshToken, 'myRefreshKey')['exp'] -
+            jwt.verify(refreshToken, 'myRefreshKey')['iat'],
+        },
       );
+      console.log('##############');
       return '로그아웃에 성공하였습니다';
     } catch (err) {
       throw new UnauthorizedException('실패');

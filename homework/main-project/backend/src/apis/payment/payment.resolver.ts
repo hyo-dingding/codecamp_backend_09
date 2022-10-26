@@ -64,6 +64,19 @@ export class PaymentResolver {
     @Context() context: IContext,
   ) {
     const user = context.req.user;
+    // accessToken 받아오기
     return this.iamPortService.refund({ impUid, user });
+
+    // accessToken 사용하여 결제 내역 조회
+    const checkIamPort = await this.iamPortService.searchPayment({
+      impUid,
+    });
+
+    // 결제 아이디/결제금액 조회
+    const realAmount = checkIamPort.data.response.amount;
   }
 }
+
+// 결제 아이디로 결제내역 조회
+// 결제 상태가 CANCLE이 아니면 취소 요청
+// 결제 상태가 CANCLE이면 오류문구

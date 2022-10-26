@@ -19,7 +19,7 @@ services:
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_DATABASE: 'mydocker09'
+      MYSQL_DATABASE: 'mydocker'
       MYSQL_ROOT_PASSWORD: 'root'
 
     ports:
@@ -29,3 +29,16 @@ services:
     image: redis:latest
     ports:
       - 6379:6379
+
+  elasticsearch:
+    image: elasticsearch:7.17.0
+    environment:
+      discovery.type: single-node
+    ports:
+      - 9200:9200
+
+  logstash:
+    image: logstash:7.17.0
+    volumes:
+      - ./elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./elk/logstash/mysql-connector-java-8.0.28.jar:/usr/share/logstash/mysql-connector-java-8.0.28.jar

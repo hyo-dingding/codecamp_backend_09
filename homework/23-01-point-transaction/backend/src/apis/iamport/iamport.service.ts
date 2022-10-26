@@ -33,9 +33,9 @@ export class IamportService {
       if (result.data.response.status !== 'paid') {
         throw new ConflictException('결제 내역이 존재하지 않습니다.');
       }
-      if (result.data.response.amount !== amount) {
-        throw new UnprocessableEntityException('결제 금액이 잘못되었습니다.');
-      }
+      // if (result.data.response.amount !== amount) {
+      //   throw new UnprocessableEntityException('결제 금액이 잘못되었습니다.');
+      // }
       console.log(result.data.response.amount);
       console.log(result.data.response.paid);
 

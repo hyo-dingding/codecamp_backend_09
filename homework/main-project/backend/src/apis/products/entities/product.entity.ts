@@ -12,6 +12,7 @@ import {
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { ProductTag } from 'src/apis/productTags/entities/productTag.entity';
 // import { ProductPay } from 'src/apis/productsPay/entities/productPay.entity';
@@ -76,8 +77,8 @@ export class Product {
   // @CreateDateColumn()
   // createAt: Date;
 
-  // @UpdateDateColumn()
-  // updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;

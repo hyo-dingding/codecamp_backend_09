@@ -8,8 +8,8 @@ import { ProductCategory } from '../productsCategory/entities/productCategory.en
 import { User } from '../users/entities/user.entity';
 import { ProductTag } from '../productTags/entities/productTag.entity';
 import { Payment } from '../payment/entities/payment.entity';
-
 import { ProductImages } from '../productImages/entities/productImages.entity';
+import { ElasticsearchModule } from '@nestjs/elasticsearch';
 
 @Module({
   imports: [
@@ -22,6 +22,9 @@ import { ProductImages } from '../productImages/entities/productImages.entity';
       ProductTag,
       ProductImages,
     ]),
+    ElasticsearchModule.register({
+      node: 'http://elasticsearch:9200',
+    }),
   ],
   providers: [
     ProductResolver, //
