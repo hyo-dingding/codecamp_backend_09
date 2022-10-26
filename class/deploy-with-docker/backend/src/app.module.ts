@@ -15,6 +15,7 @@ import { AuthModule } from './apis/auth/auth.module';
 import { PointTransactionModule } from './apis/pointTransaction/pointTransaction.module';
 import { PaymentMoudle } from './apis/payment/payment.module';
 import { FilesModule } from './apis/files/file.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -44,5 +45,6 @@ import { FilesModule } from './apis/files/file.module';
       logging: true,
     }),
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
